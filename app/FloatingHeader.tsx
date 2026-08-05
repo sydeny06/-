@@ -5,6 +5,7 @@ import SpecularButton from "./SpecularButton";
 
 export default function FloatingHeader() {
   const [isFloating, setIsFloating] = useState(false);
+  const [isCapabilitiesOpen, setIsCapabilitiesOpen] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -35,7 +36,36 @@ export default function FloatingHeader() {
       </a>
       <nav aria-label="主导航">
         <a href="#about">关于</a>
-        <a href="#strengths">能力</a>
+        <div className={`nav-capabilities${isCapabilitiesOpen ? " is-open" : ""}`}>
+          <button
+            className="nav-capabilities-trigger"
+            type="button"
+            aria-haspopup="true"
+            aria-expanded={isCapabilitiesOpen}
+            aria-controls="nav-capabilities-menu"
+            onClick={() => setIsCapabilitiesOpen((open) => !open)}
+          >
+            能力 <span aria-hidden="true">⌄</span>
+          </button>
+          <div id="nav-capabilities-menu" className="nav-capabilities-menu" aria-label="能力模块导航">
+            <a href="#work" onClick={() => setIsCapabilitiesOpen(false)}>
+              <small>01</small>
+              <span>PBR 全流程</span>
+            </a>
+            <a href="#ue-scenes" onClick={() => setIsCapabilitiesOpen(false)}>
+              <small>02</small>
+              <span>UE 场景搭建</span>
+            </a>
+            <a href="#video-showcase" onClick={() => setIsCapabilitiesOpen(false)}>
+              <small>03</small>
+              <span>游戏制作</span>
+            </a>
+            <a href="#learning-showcase" onClick={() => setIsCapabilitiesOpen(false)}>
+              <small>04</small>
+              <span>快速学习</span>
+            </a>
+          </div>
+        </div>
         <a href="#work">作品</a>
       </nav>
       <SpecularButton

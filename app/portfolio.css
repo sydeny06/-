@@ -84,17 +84,20 @@
 
 .topbar nav {
   display: flex;
+  align-items: center;
   gap: 42px;
 }
 
 .topbar nav a,
+.topbar nav button,
 .contact-link {
   position: relative;
   font-size: 14px;
   letter-spacing: 0.08em;
 }
 
-.topbar nav a::after {
+.topbar nav a::after,
+.topbar nav button::after {
   content: "";
   position: absolute;
   right: 0;
@@ -107,9 +110,114 @@
   transition: transform 260ms ease;
 }
 
-.topbar nav a:hover::after {
+.topbar nav a:hover::after,
+.topbar nav button:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.nav-capabilities {
+  position: relative;
+}
+
+.nav-capabilities-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  background: transparent;
+}
+
+.nav-capabilities-trigger span {
+  color: var(--acid);
+  font-size: 13px;
+  transform: translateY(-1px);
+  transition: transform 220ms ease;
+}
+
+.nav-capabilities-menu {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 50%;
+  width: 224px;
+  padding: 8px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.075), transparent 50%),
+    rgba(8,10,9,.94);
+  box-shadow: 0 24px 58px rgba(0,0,0,.38);
+  backdrop-filter: blur(22px) saturate(1.25);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -8px);
+  transition:
+    opacity 180ms ease,
+    visibility 180ms ease,
+    transform 220ms cubic-bezier(.2,.8,.2,1);
+}
+
+.nav-capabilities-menu::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: 20px;
+}
+
+.nav-capabilities:hover .nav-capabilities-menu,
+.nav-capabilities:focus-within .nav-capabilities-menu,
+.nav-capabilities.is-open .nav-capabilities-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.nav-capabilities:hover .nav-capabilities-trigger span,
+.nav-capabilities:focus-within .nav-capabilities-trigger span,
+.nav-capabilities.is-open .nav-capabilities-trigger span {
+  transform: translateY(-1px) rotate(180deg);
+}
+
+.topbar nav .nav-capabilities-menu a {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  gap: 10px;
+  min-height: 45px;
+  padding: 0 12px;
+  border-radius: 10px;
+  color: rgba(255,255,255,.78);
+  font-size: 12px;
+  letter-spacing: .04em;
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.topbar nav .nav-capabilities-menu a::after {
+  display: none;
+}
+
+.topbar nav .nav-capabilities-menu a:hover,
+.topbar nav .nav-capabilities-menu a:focus-visible {
+  color: #f8faef;
+  background: rgba(184,220,70,.11);
+  transform: translateX(2px);
+  outline: none;
+}
+
+.nav-capabilities-menu small {
+  color: var(--acid);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
 }
 
 .contact-link {
