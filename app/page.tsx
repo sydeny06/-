@@ -9,6 +9,7 @@ import PortfolioMotion from "./PortfolioMotion";
 import UeScenesGallery from "./UeScenesGallery";
 import VideoShowcase from "./VideoShowcase";
 import LearningShowcase from "./LearningShowcase";
+import LiquidEther from "./LiquidEther";
 
 export const metadata: Metadata = {
   title: "闫醴炀 | 3D 场景模型制作师",
@@ -142,6 +143,20 @@ const Arrow = () => <span aria-hidden="true">↗</span>;
 export default function Home() {
   return (
     <main>
+      <div className="liquid-background" aria-hidden="true">
+        <LiquidEther
+          colors={["#b8dc46", "#6f8f38", "#d8f5a0"]}
+          mouseForce={15}
+          cursorSize={92}
+          resolution={0.38}
+          iterationsViscous={20}
+          iterationsPoisson={22}
+          autoSpeed={0.32}
+          autoIntensity={1.55}
+          autoResumeDelay={2200}
+          autoRampDuration={0.8}
+        />
+      </div>
       <FloatingHeader />
       <SpecularFrames />
       <PortfolioMotion />

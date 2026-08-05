@@ -3084,3 +3084,109 @@ footer { border-color: rgba(184,220,70,.16); }
     min-height: 86px;
   }
 }
+
+/* Interactive LiquidEther layer shared by the full portfolio background. */
+main {
+  position: relative;
+  isolation: isolate;
+}
+
+.liquid-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: #060a08;
+}
+
+.liquid-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(184,220,70,.025), transparent 34%),
+    rgba(4,7,5,.2);
+}
+
+.liquid-background .liquid-ether-container {
+  position: absolute;
+  inset: 0;
+  opacity: .58;
+  filter: saturate(.78) brightness(.72);
+}
+
+.about {
+  background:
+    linear-gradient(rgba(184,220,70,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,220,70,.035) 1px, transparent 1px),
+    rgba(8,12,10,.82);
+  background-size: 82px 82px;
+}
+
+.strengths {
+  background:
+    radial-gradient(circle at 72% 38%, rgba(184,220,70,.08), transparent 28%),
+    linear-gradient(rgba(184,220,70,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,220,70,.035) 1px, transparent 1px),
+    rgba(9,13,11,.8);
+  background-size: auto, 88px 88px, 88px 88px, auto;
+}
+
+.work {
+  background:
+    linear-gradient(rgba(184,220,70,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,220,70,.03) 1px, transparent 1px),
+    rgba(7,11,9,.8);
+  background-size: 86px 86px;
+}
+
+.ue-scenes {
+  background:
+    radial-gradient(circle at 78% 16%, rgba(184,220,70,.09), transparent 26%),
+    linear-gradient(rgba(184,220,70,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,220,70,.028) 1px, transparent 1px),
+    rgba(8,12,10,.8);
+  background-size: auto, 86px 86px, 86px 86px, auto;
+}
+
+.video-showcase {
+  background:
+    radial-gradient(circle at 24% 18%, rgba(184,220,70,.08), transparent 27%),
+    linear-gradient(rgba(184,220,70,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,220,70,.025) 1px, transparent 1px),
+    rgba(7,10,8,.8);
+  background-size: auto, 86px 86px, 86px 86px, auto;
+}
+
+.learning-showcase {
+  background:
+    radial-gradient(circle at 74% 18%, rgba(184,220,70,.075), transparent 27%),
+    linear-gradient(rgba(184,220,70,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,220,70,.025) 1px, transparent 1px),
+    rgba(8,12,10,.8);
+  background-size: auto, 86px 86px, 86px 86px, auto;
+}
+
+.contact {
+  background:
+    radial-gradient(circle at 68% 50%, rgba(184,220,70,.07), transparent 28%),
+    linear-gradient(rgba(184,220,70,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,220,70,.035) 1px, transparent 1px),
+    rgba(8,12,10,.82);
+  background-size: auto, 80px 80px, 80px 80px, auto;
+}
+
+@media (max-width: 760px) {
+  .liquid-background .liquid-ether-container {
+    opacity: .42;
+    filter: saturate(.72) brightness(.66);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-background {
+    display: none;
+  }
+}
