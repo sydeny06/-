@@ -2692,6 +2692,29 @@ footer { border-color: rgba(184,220,70,.16); }
   filter: saturate(1.06);
 }
 
+.video-showcase {
+  border-top: 1px solid rgba(184, 220, 70, .11);
+  background:
+    radial-gradient(circle at 24% 18%, rgba(184, 220, 70, .08), transparent 27%),
+    linear-gradient(rgba(184, 220, 70, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 220, 70, .025) 1px, transparent 1px),
+    #070a08;
+  background-size: auto, 86px 86px, 86px 86px, auto;
+}
+
+.video-showcase-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #020302;
+  transition: transform 900ms cubic-bezier(.2, .8, .2, 1), filter 500ms ease;
+}
+
+.video-showcase-card:hover video {
+  transform: scale(1.008);
+  filter: saturate(1.04);
+}
+
 .ue-scenes-card figcaption {
   position: absolute;
   inset: 0;
@@ -2742,6 +2765,21 @@ footer { border-color: rgba(184,220,70,.16); }
   font-size: 8px;
   line-height: 1.7;
   text-align: right;
+}
+
+.video-showcase-card figcaption {
+  align-items: start;
+  background: linear-gradient(180deg, rgba(3, 6, 4, .92) 0%, rgba(3, 6, 4, .34) 28%, transparent 55%);
+}
+
+.video-showcase-card figcaption > span {
+  align-self: start;
+  padding-bottom: 0;
+}
+
+.video-showcase-card figcaption p {
+  margin-top: 4px;
+  margin-bottom: 0;
 }
 
 @media (max-width: 1100px) {

@@ -7,6 +7,7 @@ import HeroVideo from "./HeroVideo";
 import SpecularFrames from "./SpecularFrames";
 import PortfolioMotion from "./PortfolioMotion";
 import UeScenesGallery from "./UeScenesGallery";
+import VideoShowcase from "./VideoShowcase";
 
 export const metadata: Metadata = {
   title: "闫醴炀 | 3D 场景模型制作师",
@@ -251,6 +252,8 @@ export default function Home() {
       <StrengthsSection strengths={strengths} />
 
       <UeScenesGallery />
+
+      <VideoShowcase />
 
       <section className="work section" id="work">
         <div className="shell">

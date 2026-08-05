@@ -161,6 +161,13 @@ export default function PortfolioMotion() {
             image: "",
           },
           {
+            section: ".video-showcase",
+            title: ".ue-scenes-heading-row h2",
+            support: ".ue-scenes-heading-row .eyebrow, .ue-scenes-intro",
+            cards: ".video-showcase-card",
+            image: "",
+          },
+          {
             section: ".contact",
             title: ".contact-main > h2",
             support: ".contact-main > p",
