@@ -44,7 +44,7 @@ export default function UeScenesGallery() {
     <section className="ue-scenes" id="ue-scenes" aria-labelledby="ue-scenes-title">
       <div className="ue-scenes-heading shell">
         <div className="section-label">
-          <span>02.5</span>
+          <span>03.B</span>
           <p>UNREAL ENGINE / 场景搭建</p>
         </div>
         <div className="ue-scenes-heading-row">

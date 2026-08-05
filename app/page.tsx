@@ -251,15 +251,11 @@ export default function Home() {
 
       <StrengthsSection strengths={strengths} />
 
-      <UeScenesGallery />
-
-      <VideoShowcase />
-
       <section className="work section" id="work">
         <div className="shell">
           <div className="section-label">
-            <span>03</span>
-            <p>SELECTED WORK / 精选项目</p>
+            <span>03.A</span>
+            <p>PBR WORKFLOW / PBR 全流程展示</p>
           </div>
           <div className="work-heading">
             <h2>SCENES WITH<br />A SENSE OF PLACE.</h2>
@@ -272,6 +268,10 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <UeScenesGallery />
+
+      <VideoShowcase />
 
       <section className="contact" id="contact">
         <div className="contact-orbit" aria-hidden="true" />

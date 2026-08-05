@@ -58,7 +58,7 @@ export default function VideoShowcase() {
     <section className="ue-scenes video-showcase" id="video-showcase" aria-labelledby="video-showcase-title">
       <div className="ue-scenes-heading shell">
         <div className="section-label">
-          <span>02.C</span>
+          <span>03.C</span>
           <p>GAME DEVELOPMENT / 游戏制作</p>
         </div>
         <div className="ue-scenes-heading-row">
