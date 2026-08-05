@@ -153,9 +153,7 @@ export default function LearningShowcase() {
       >
         {notes.map((note, index) => (
             <figure
-              className={`ue-scenes-card learning-showcase-card${
-                index === notes.length - 2 ? " learning-showcase-card--compact" : ""
-              }`}
+              className="ue-scenes-card learning-showcase-card learning-showcase-card--compact"
             id={`learning-note-${String(index + 1).padStart(2, "0")}`}
             key={note.image}
             onMouseEnter={() => hoverToNote(index)}
