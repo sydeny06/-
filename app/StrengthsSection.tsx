@@ -34,6 +34,23 @@ const modelChoices = [
   },
 ];
 
+const ueSceneChoices = [
+  {
+    href: "#ue-scene-01",
+    image: "/portfolio/ue-scenes/ruins-settlement.png",
+    index: "01",
+    title: "废墟聚落",
+    meta: "RUINS / OVERCAST / FOG",
+  },
+  {
+    href: "#ue-scene-02",
+    image: "/portfolio/ue-scenes/forest-shrine.png",
+    index: "02",
+    title: "林间神社",
+    meta: "SHRINE / LIGHTING / RAIN",
+  },
+];
+
 export default function StrengthsSection({ strengths }: Props) {
   return (
     <section className="strengths section shell" id="strengths">
@@ -49,15 +66,20 @@ export default function StrengthsSection({ strengths }: Props) {
         {strengths.map((strength) => {
           const isPbr = strength.index === "01";
           const isUe = strength.index === "02";
+          const isInteractive = isPbr || isUe;
+          const choices = isUe ? ueSceneChoices : modelChoices;
 
           return (
-            <article className={isPbr ? "strength-card--pbr" : ""} key={strength.index}>
-              {isPbr ? (
+            <article
+              className={isInteractive ? `strength-card--pbr${isUe ? " strength-card--ue" : ""}` : ""}
+              key={strength.index}
+            >
+              {isInteractive ? (
                 <>
                   <div
                     className="strength-card-trigger"
                     tabIndex={0}
-                    aria-label="悬停或聚焦后选择 PBR 模型"
+                    aria-label={isUe ? "悬停或聚焦后选择 UE 场景" : "悬停或聚焦后选择 PBR 模型"}
                   >
                     <span className="strength-top">
                       <span>{strength.index}</span>
@@ -65,19 +87,26 @@ export default function StrengthsSection({ strengths }: Props) {
                     </span>
                     <h3>{strength.title}</h3>
                     <p>{strength.text}</p>
-                    <span className="strength-action">悬停选择 PBR 模型 →</span>
+                    <span className="strength-action">
+                      {isUe ? "悬停选择 UE 场景 →" : "悬停选择 PBR 模型 →"}
+                    </span>
                   </div>
 
-                  <div className="model-chooser" id="pbr-model-chooser" role="group" aria-label="选择 PBR 模型">
+                  <div
+                    className="model-chooser"
+                    id={isUe ? "ue-scene-chooser" : "pbr-model-chooser"}
+                    role="group"
+                    aria-label={isUe ? "选择 UE 场景" : "选择 PBR 模型"}
+                  >
                     <div className="model-chooser-head">
-                      <span>SELECT A MODEL / 选择模型</span>
+                      <span>{isUe ? "SELECT A SCENE / 选择场景" : "SELECT A MODEL / 选择模型"}</span>
                     </div>
-                    <div className="model-choice-list">
-                      {modelChoices.map((model) => (
+                    <div className={`model-choice-list${isUe ? " model-choice-list--ue" : ""}`}>
+                      {choices.map((model) => (
                         <a href={model.href} key={model.index}>
-                          <img src={model.image} alt="" />
+                          <img src={model.image} alt={`${model.title}预览`} />
                           <span>
-                            <small>{model.index} / MODEL</small>
+                            <small>{model.index} / {isUe ? "SCENE" : "MODEL"}</small>
                             <b>{model.title}</b>
                             <em>{model.meta}</em>
                           </span>
@@ -94,11 +123,6 @@ export default function StrengthsSection({ strengths }: Props) {
                   </div>
                   <h3>{strength.title}</h3>
                   <p>{strength.text}</p>
-                  {isUe ? (
-                    <a className="strength-ue-link" href="#ue-scenes">
-                      查看 UE 场景横屏 →
-                    </a>
-                  ) : null}
                 </>
               )}
             </article>

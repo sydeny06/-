@@ -107,7 +107,12 @@ export default function UeScenesGallery() {
         aria-label="UE 场景横向作品展示，使用左右方向键切换"
       >
         {scenes.map((scene, index) => (
-          <figure className="ue-scenes-card" key={scene.image} aria-label={`${scene.title}，第 ${index + 1} 张，共 ${scenes.length} 张`}>
+          <figure
+            className="ue-scenes-card"
+            id={`ue-scene-${String(index + 1).padStart(2, "0")}`}
+            key={scene.image}
+            aria-label={`${scene.title}，第 ${index + 1} 张，共 ${scenes.length} 张`}
+          >
             <img src={scene.image} alt={`${scene.title} Unreal Engine 场景`} />
             <figcaption>
               <span>SCENE / {String(index + 1).padStart(2, "0")}</span>

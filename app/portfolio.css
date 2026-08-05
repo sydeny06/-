@@ -2495,24 +2495,22 @@ footer { border-color: rgba(184,220,70,.16); }
 }
 
 /* UE scene gallery ------------------------------------------------------- */
-.strength-ue-link {
-  width: fit-content;
-  margin-top: 18px;
-  color: var(--acid);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 8px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+.model-choice-list--ue {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
-.strength-ue-link:hover,
-.strength-ue-link:focus-visible {
-  text-decoration: underline;
-  text-underline-offset: 5px;
+.model-choice-list--ue a {
+  grid-template-columns: 58% minmax(0, 1fr);
 }
 
-.strength-grid article:hover .strength-ue-link {
-  color: #070b09;
+.model-choice-list--ue a:nth-child(n) img {
+  min-height: 112px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.strength-card--ue .model-chooser {
+  box-shadow: 0 22px 64px rgba(0,0,0,.36), inset 0 0 0 1px rgba(184,220,70,.42);
 }
 
 .ue-scenes {
@@ -2679,6 +2677,7 @@ footer { border-color: rgba(184,220,70,.16); }
   border-radius: 20px;
   background: #030504;
   box-shadow: 0 32px 90px rgba(0, 0, 0, .34);
+  scroll-margin-inline: var(--ue-track-gutter);
 }
 
 .ue-scenes-card img {
@@ -2811,5 +2810,13 @@ footer { border-color: rgba(184,220,70,.16); }
 
   .ue-scenes-card figcaption strong {
     font-size: clamp(22px, 7vw, 34px);
+  }
+
+  .model-choice-list--ue a {
+    grid-template-columns: 54% minmax(0, 1fr);
+  }
+
+  .model-choice-list--ue a:nth-child(n) img {
+    min-height: 86px;
   }
 }
