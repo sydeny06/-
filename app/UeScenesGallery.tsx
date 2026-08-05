@@ -19,11 +19,22 @@ const scenes = [
 
 export default function UeScenesGallery() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const hoverLockRef = useRef(false);
   const [activeScene, setActiveScene] = useState(0);
 
   const scrollToScene = (index: number) => {
+    setActiveScene(index);
     const target = trackRef.current?.children[index] as HTMLElement | undefined;
     target?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+  };
+
+  const hoverToScene = (index: number) => {
+    if (hoverLockRef.current || index === activeScene) return;
+    hoverLockRef.current = true;
+    scrollToScene(index);
+    window.setTimeout(() => {
+      hoverLockRef.current = false;
+    }, 520);
   };
 
   const updateActiveScene = () => {
@@ -111,6 +122,7 @@ export default function UeScenesGallery() {
             className="ue-scenes-card"
             id={`ue-scene-${String(index + 1).padStart(2, "0")}`}
             key={scene.image}
+            onMouseEnter={() => hoverToScene(index)}
             aria-label={`${scene.title}，第 ${index + 1} 张，共 ${scenes.length} 张`}
           >
             <img src={scene.image} alt={`${scene.title} Unreal Engine 场景`} />

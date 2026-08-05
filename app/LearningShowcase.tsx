@@ -49,11 +49,22 @@ const notes = [
 
 export default function LearningShowcase() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const hoverLockRef = useRef(false);
   const [activeNote, setActiveNote] = useState(0);
 
   const scrollToNote = (index: number) => {
+    setActiveNote(index);
     const target = trackRef.current?.children[index] as HTMLElement | undefined;
     target?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+  };
+
+  const hoverToNote = (index: number) => {
+    if (hoverLockRef.current || index === activeNote) return;
+    hoverLockRef.current = true;
+    scrollToNote(index);
+    window.setTimeout(() => {
+      hoverLockRef.current = false;
+    }, 520);
   };
 
   const updateActiveNote = () => {
@@ -145,6 +156,7 @@ export default function LearningShowcase() {
             className="ue-scenes-card learning-showcase-card"
             id={`learning-note-${String(index + 1).padStart(2, "0")}`}
             key={note.image}
+            onMouseEnter={() => hoverToNote(index)}
             aria-label={`${note.title}，第 ${index + 1} 张，共 ${notes.length} 张`}
           >
             <a

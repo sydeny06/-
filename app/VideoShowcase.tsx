@@ -20,6 +20,7 @@ const videos = [
 export default function VideoShowcase() {
   const trackRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
+  const hoverLockRef = useRef(false);
   const [activeVideo, setActiveVideo] = useState(0);
 
   useEffect(() => {
@@ -36,8 +37,18 @@ export default function VideoShowcase() {
   }, [activeVideo]);
 
   const scrollToVideo = (index: number) => {
+    setActiveVideo(index);
     const target = trackRef.current?.children[index] as HTMLElement | undefined;
     target?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+  };
+
+  const hoverToVideo = (index: number) => {
+    if (hoverLockRef.current || index === activeVideo) return;
+    hoverLockRef.current = true;
+    scrollToVideo(index);
+    window.setTimeout(() => {
+      hoverLockRef.current = false;
+    }, 520);
   };
 
   const updateActiveVideo = () => {
@@ -125,6 +136,7 @@ export default function VideoShowcase() {
             className="ue-scenes-card video-showcase-card"
             id={`game-video-${String(index + 1).padStart(2, "0")}`}
             key={video.src}
+            onMouseEnter={() => hoverToVideo(index)}
             aria-label={`${video.title}，第 ${index + 1} 段，共 ${videos.length} 段`}
           >
             <video
