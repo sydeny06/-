@@ -6,6 +6,7 @@ import SpecularButton from "./SpecularButton";
 export default function FloatingHeader() {
   const [isFloating, setIsFloating] = useState(false);
   const [isCapabilitiesOpen, setIsCapabilitiesOpen] = useState(false);
+  const [isModelsOpen, setIsModelsOpen] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -43,7 +44,10 @@ export default function FloatingHeader() {
             aria-haspopup="true"
             aria-expanded={isCapabilitiesOpen}
             aria-controls="nav-capabilities-menu"
-            onClick={() => setIsCapabilitiesOpen((open) => !open)}
+            onClick={() => {
+              setIsCapabilitiesOpen((open) => !open);
+              setIsModelsOpen(false);
+            }}
           >
             能力 <span aria-hidden="true">⌄</span>
           </button>
@@ -66,7 +70,35 @@ export default function FloatingHeader() {
             </a>
           </div>
         </div>
-        <a href="#work">作品</a>
+        <div className={`nav-capabilities nav-models${isModelsOpen ? " is-open" : ""}`}>
+          <button
+            className="nav-capabilities-trigger"
+            type="button"
+            aria-haspopup="true"
+            aria-expanded={isModelsOpen}
+            aria-controls="nav-models-menu"
+            onClick={() => {
+              setIsModelsOpen((open) => !open);
+              setIsCapabilitiesOpen(false);
+            }}
+          >
+            建模作品 <span aria-hidden="true">⌄</span>
+          </button>
+          <div id="nav-models-menu" className="nav-capabilities-menu nav-models-menu" aria-label="PBR 建模作品导航">
+            <a href="#project-01" onClick={() => setIsModelsOpen(false)}>
+              <small>01</small>
+              <span>废土卫星资产</span>
+            </a>
+            <a href="#project-02" onClick={() => setIsModelsOpen(false)}>
+              <small>02</small>
+              <span>梵音断魂</span>
+            </a>
+            <a href="#project-03" onClick={() => setIsModelsOpen(false)}>
+              <small>03</small>
+              <span>风化神社门廊</span>
+            </a>
+          </div>
+        </div>
       </nav>
       <SpecularButton
         className="topbar-contact-button"

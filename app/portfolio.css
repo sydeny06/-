@@ -220,6 +220,10 @@
   letter-spacing: .12em;
 }
 
+.nav-models-menu {
+  width: 238px;
+}
+
 .contact-link {
   justify-self: end;
   display: flex;
