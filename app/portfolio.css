@@ -2805,8 +2805,9 @@ footer { border-color: rgba(184,220,70,.16); }
 }
 
 .learning-showcase-card {
-  height: min(76vh, 820px);
-  min-height: 560px;
+  flex-basis: min(68vw, 1120px);
+  height: min(62vh, 650px);
+  min-height: 430px;
   aspect-ratio: auto;
   background: #f1f2ef;
 }
@@ -2816,7 +2817,7 @@ footer { border-color: rgba(184,220,70,.16); }
   inset: 0 0 96px;
   display: grid;
   place-items: center;
-  padding: clamp(12px, 2vw, 28px);
+  padding: clamp(24px, 3vw, 48px);
   cursor: zoom-in;
   background: #f1f2ef;
 }
@@ -2924,13 +2925,14 @@ footer { border-color: rgba(184,220,70,.16); }
   }
 
   .learning-showcase-card {
-    height: min(72vh, 680px);
-    min-height: 470px;
+    flex-basis: 84vw;
+    height: min(58vh, 520px);
+    min-height: 390px;
   }
 
   .learning-image-link {
     bottom: 108px;
-    padding: 10px;
+    padding: 18px;
   }
 
   .learning-showcase-card figcaption {
