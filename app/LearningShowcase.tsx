@@ -152,8 +152,10 @@ export default function LearningShowcase() {
         aria-label="快速学习横向笔记展示，使用左右方向键切换"
       >
         {notes.map((note, index) => (
-          <figure
-            className="ue-scenes-card learning-showcase-card"
+            <figure
+              className={`ue-scenes-card learning-showcase-card${
+                index === notes.length - 2 ? " learning-showcase-card--compact" : ""
+              }`}
             id={`learning-note-${String(index + 1).padStart(2, "0")}`}
             key={note.image}
             onMouseEnter={() => hoverToNote(index)}
