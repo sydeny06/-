@@ -8,6 +8,7 @@ import SpecularFrames from "./SpecularFrames";
 import PortfolioMotion from "./PortfolioMotion";
 import UeScenesGallery from "./UeScenesGallery";
 import VideoShowcase from "./VideoShowcase";
+import LearningShowcase from "./LearningShowcase";
 
 export const metadata: Metadata = {
   title: "闫醴炀 | 3D 场景模型制作师",
@@ -272,6 +273,8 @@ export default function Home() {
       <UeScenesGallery />
 
       <VideoShowcase />
+
+      <LearningShowcase />
 
       <section className="contact" id="contact">
         <div className="contact-orbit" aria-hidden="true" />
