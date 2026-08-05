@@ -9,7 +9,7 @@ import PortfolioMotion from "./PortfolioMotion";
 import UeScenesGallery from "./UeScenesGallery";
 import VideoShowcase from "./VideoShowcase";
 import LearningShowcase from "./LearningShowcase";
-import LiquidEther from "./LiquidEther";
+import LiquidBackground from "./LiquidBackground";
 
 export const metadata: Metadata = {
   title: "闫醴炀 | 3D 场景模型制作师",
@@ -24,22 +24,22 @@ const projects: InteractiveProjectData[] = [
     titleEn: "ORBITAL RELIC",
     year: "2026",
     subtitle: "废土科幻卫星 · 硬表面建模与 PBR 材质",
-    image: "/portfolio/satellite-angle-01.jpg",
+    image: "/portfolio/optimized/satellite-angle-01.webp",
     details: [
       {
-        image: "/portfolio/satellite-detail-body.jpg",
+        image: "/portfolio/optimized/satellite-detail-body.webp",
         title: "中央舱体",
         note: "装甲层次 / 表面磨损",
         hotspot: { x: 64, y: 50, side: "left" },
       },
       {
-        image: "/portfolio/satellite-detail-tank.jpg",
+        image: "/portfolio/optimized/satellite-detail-tank.webp",
         title: "动力组件",
         note: "管线结构 / 金属材质",
         hotspot: { x: 43, y: 58, side: "right" },
       },
       {
-        image: "/portfolio/satellite-detail-tail.jpg",
+        image: "/portfolio/optimized/satellite-detail-tail.webp",
         title: "尾部结构",
         note: "网格护罩 / 管线连接",
         hotspot: { x: 82, y: 53, side: "left" },
@@ -53,29 +53,29 @@ const projects: InteractiveProjectData[] = [
     titleEn: "ECHO CLEAVER",
     year: "2024",
     subtitle: "风格化武器资产 · 造型、雕刻与材质表现",
-    image: "/portfolio/weapon-main.jpg",
+    image: "/portfolio/optimized/weapon-main.webp",
     details: [
       {
-        image: "/portfolio/weapon-detail-guard.jpg",
+        image: "/portfolio/optimized/weapon-detail-guard.webp",
         title: "护手与刃根",
         note: "宝石嵌件 / 做旧细节",
         hotspot: { x: 57, y: 59, side: "right" },
       },
       {
-        image: "/portfolio/weapon-detail-pommel.jpg",
+        image: "/portfolio/optimized/weapon-detail-pommel.webp",
         title: "月牙尾饰",
         note: "雕花层次 / 绳结材质",
         fit: "contain",
         hotspot: { x: 91, y: 48, side: "left" },
       },
       {
-        image: "/portfolio/weapon-detail-grip.jpg",
+        image: "/portfolio/optimized/weapon-detail-grip.webp",
         title: "皮革握把",
         note: "缠绕结构 / 铆钉磨损",
         hotspot: { x: 76, y: 59, side: "left" },
       },
       {
-        image: "/portfolio/weapon-detail-blade.jpg",
+        image: "/portfolio/optimized/weapon-detail-blade.webp",
         title: "刀刃纹饰",
         note: "金属边缘 / 浮雕花纹",
         hotspot: { x: 30, y: 57, side: "right" },
@@ -143,20 +143,7 @@ const Arrow = () => <span aria-hidden="true">↗</span>;
 export default function Home() {
   return (
     <main>
-      <div className="liquid-background" aria-hidden="true">
-        <LiquidEther
-          colors={["#b8dc46", "#6f8f38", "#d8f5a0"]}
-          mouseForce={15}
-          cursorSize={92}
-          resolution={0.38}
-          iterationsViscous={20}
-          iterationsPoisson={22}
-          autoSpeed={0.32}
-          autoIntensity={1.55}
-          autoResumeDelay={2200}
-          autoRampDuration={0.8}
-        />
-      </div>
+      <LiquidBackground />
       <FloatingHeader />
       <SpecularFrames />
       <PortfolioMotion />
@@ -200,7 +187,7 @@ export default function Home() {
         </div>
         <div className="about-layout">
           <div className="portrait-wrap">
-            <img src="/portfolio/portrait.jpeg" alt="闫醴炀个人照" />
+            <img src="/portfolio/optimized/portrait.webp" alt="闫醴炀个人照" loading="lazy" decoding="async" />
             <span className="portrait-caption">YAN LI YANG — 3D ENVIRONMENT</span>
           </div>
           <div className="about-copy">

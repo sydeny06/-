@@ -20,12 +20,10 @@ export default function FloatingHeader() {
 
     updateHeader();
     window.addEventListener("scroll", updateHeader, { passive: true });
-    window.addEventListener("resize", updateHeader);
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", updateHeader);
-      window.removeEventListener("resize", updateHeader);
     };
   }, []);
 

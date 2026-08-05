@@ -1,16 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const scenes = [
   {
-    image: "/portfolio/ue-scenes/ruins-settlement.png",
+    image: "/portfolio/ue-scenes/ruins-settlement.webp",
     title: "废墟聚落",
     titleEn: "RUINED SETTLEMENT",
     note: "废墟建筑群 / 阴天雾效 / 叙事化构图",
   },
   {
-    image: "/portfolio/ue-scenes/forest-shrine.png",
+    image: "/portfolio/ue-scenes/forest-shrine.webp",
     title: "林间神社",
     titleEn: "FOREST SHRINE",
     note: "日式木构 / 暖冷光影 / 雨林氛围",
@@ -20,7 +20,10 @@ const scenes = [
 export default function UeScenesGallery() {
   const trackRef = useRef<HTMLDivElement>(null);
   const hoverLockRef = useRef(false);
+  const scrollFrameRef = useRef(0);
   const [activeScene, setActiveScene] = useState(0);
+
+  useEffect(() => () => window.cancelAnimationFrame(scrollFrameRef.current), []);
 
   const scrollToScene = (index: number) => {
     setActiveScene(index);
@@ -38,17 +41,21 @@ export default function UeScenesGallery() {
   };
 
   const updateActiveScene = () => {
-    const track = trackRef.current;
-    if (!track) return;
+    if (scrollFrameRef.current) return;
+    scrollFrameRef.current = window.requestAnimationFrame(() => {
+      scrollFrameRef.current = 0;
+      const track = trackRef.current;
+      if (!track) return;
 
-    const cards = Array.from(track.children) as HTMLElement[];
-    const nearestIndex = cards.reduce((nearest, card, index) => {
-      const nearestDistance = Math.abs(cards[nearest].offsetLeft - track.scrollLeft);
-      const cardDistance = Math.abs(card.offsetLeft - track.scrollLeft);
-      return cardDistance < nearestDistance ? index : nearest;
-    }, 0);
+      const cards = Array.from(track.children) as HTMLElement[];
+      const nearestIndex = cards.reduce((nearest, card, index) => {
+        const nearestDistance = Math.abs(cards[nearest].offsetLeft - track.scrollLeft);
+        const cardDistance = Math.abs(card.offsetLeft - track.scrollLeft);
+        return cardDistance < nearestDistance ? index : nearest;
+      }, 0);
 
-    setActiveScene(nearestIndex);
+      setActiveScene(nearestIndex);
+    });
   };
 
   return (
@@ -125,7 +132,7 @@ export default function UeScenesGallery() {
             onMouseEnter={() => hoverToScene(index)}
             aria-label={`${scene.title}，第 ${index + 1} 张，共 ${scenes.length} 张`}
           >
-            <img src={scene.image} alt={`${scene.title} Unreal Engine 场景`} />
+            <img src={scene.image} alt={`${scene.title} Unreal Engine 场景`} loading="lazy" decoding="async" />
             <figcaption>
               <span>SCENE / {String(index + 1).padStart(2, "0")}</span>
               <div>

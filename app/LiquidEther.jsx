@@ -957,6 +957,8 @@ export default function LiquidEther({
         };
         document.addEventListener('visibilitychange', this._onVisibility);
         this.running = false;
+        this.lastFrameTime = 0;
+        this.frameInterval = 1000 / 30;
       }
       init() {
         this.props.$wrapper.prepend(Common.renderer.domElement);
@@ -972,15 +974,19 @@ export default function LiquidEther({
         Common.update();
         this.output.update();
       }
-      loop() {
+      loop(timestamp) {
         if (!this.running) return; // safety
-        this.render();
+        if (timestamp - this.lastFrameTime >= this.frameInterval) {
+          this.lastFrameTime = timestamp;
+          this.render();
+        }
         rafRef.current = requestAnimationFrame(this._loop);
       }
       start() {
         if (this.running) return;
         this.running = true;
-        this._loop();
+        this.lastFrameTime = 0;
+        rafRef.current = requestAnimationFrame(this._loop);
       }
       pause() {
         this.running = false;
@@ -1168,4 +1174,3 @@ export default function LiquidEther({
 
   return <div ref={mountRef} className={`liquid-ether-container ${className || ''}`} style={style} />;
 }
-

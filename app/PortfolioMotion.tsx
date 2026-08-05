@@ -67,27 +67,27 @@ export default function PortfolioMotion() {
         });
 
         openingTimeline
-          .to(".opening-meta", { autoAlpha: 1, y: 0, duration: 0.8 })
+          .to(".opening-meta", { autoAlpha: 1, y: 0, duration: 0.45 })
           .to(
             openingWords,
-            { yPercent: 0, skewY: 0, duration: 1.15, stagger: 0.12 },
-            0.12,
+            { yPercent: 0, skewY: 0, duration: 0.72, stagger: 0.1 },
+            0.05,
           )
           .to(
             ".opening-progress, .opening-count",
-            { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.08 },
-            0.3,
+            { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.06 },
+            0.2,
           )
           .to(
             ".opening-progress > i",
-            { scaleX: 1, duration: 1.45, ease: "power3.inOut" },
-            0.42,
+            { scaleX: 1, duration: 0.85, ease: "power3.inOut" },
+            0.3,
           )
           .to(
             counter,
             {
               value: 100,
-              duration: 1.45,
+              duration: 0.85,
               ease: "power3.inOut",
               onUpdate: () => {
                 if (countRef.current) {
@@ -95,40 +95,40 @@ export default function PortfolioMotion() {
                 }
               },
             },
-            0.42,
+            0.3,
           )
           .to(
             ".opening-panel--left",
-            { xPercent: -102, duration: 1.3, ease: "power4.inOut" },
-            1.62,
+            { xPercent: -102, duration: 0.78, ease: "power4.inOut" },
+            1.1,
           )
           .to(
             ".opening-panel--right",
-            { xPercent: 102, duration: 1.3, ease: "power4.inOut" },
-            1.62,
+            { xPercent: 102, duration: 0.78, ease: "power4.inOut" },
+            1.1,
           )
           .to(
             ".opening-interface",
-            { autoAlpha: 0, scale: 0.985, duration: 0.45, ease: "power2.in" },
-            1.55,
+            { autoAlpha: 0, scale: 0.985, duration: 0.25, ease: "power2.in" },
+            1.04,
           )
-          .to(".hero-media video", { scale: 1, duration: 2.2 }, 1.45)
-          .to(".topbar", { yPercent: 0, autoAlpha: 1, duration: 1.05 }, 1.82)
+          .to(".hero-media video", { scale: 1, duration: 1.1 }, 0.95)
+          .to(".topbar", { yPercent: 0, autoAlpha: 1, duration: 0.65 }, 1.2)
           .to(
             heroLines,
             {
               yPercent: 0,
               scaleX: 1,
               skewX: 0,
-              duration: 1.48,
-              stagger: 0.16,
+              duration: 0.95,
+              stagger: 0.1,
             },
-            1.78,
+            1.15,
           )
           .to(
             heroSecondary,
-            { autoAlpha: 1, y: 0, duration: 1.05, stagger: 0.12 },
-            2.05,
+            { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 },
+            1.35,
           );
 
         const sectionSequences = [
@@ -202,7 +202,8 @@ export default function PortfolioMotion() {
               trigger: sectionElement,
               start: "top 72%",
               end: "bottom 28%",
-              toggleActions: "restart none restart reset",
+              toggleActions: "play none none none",
+              once: true,
             },
           });
 
@@ -300,7 +301,8 @@ export default function PortfolioMotion() {
               trigger: card,
               start: "top 84%",
               end: "bottom 16%",
-              toggleActions: "restart none restart reset",
+              toggleActions: "play none none none",
+              once: true,
             },
           });
           cardTimeline
@@ -348,7 +350,8 @@ export default function PortfolioMotion() {
                 trigger: image,
                 start: "top 88%",
                 end: "bottom 12%",
-                toggleActions: "restart none restart reset",
+                toggleActions: "play none none none",
+                once: true,
               },
             },
           );

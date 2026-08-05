@@ -53,13 +53,10 @@ export default function SpecularFrames() {
     };
 
     refresh();
-    const observer = new MutationObserver(refresh);
-    observer.observe(document.body, { childList: true, subtree: true });
     window.addEventListener("pointermove", onPointerMove, { passive: true });
 
     return () => {
       window.cancelAnimationFrame(animationFrame);
-      observer.disconnect();
       window.removeEventListener("pointermove", onPointerMove);
       frames.forEach((frame) => frame.classList.remove("specular-frame"));
     };

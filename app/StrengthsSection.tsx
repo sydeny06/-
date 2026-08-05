@@ -13,14 +13,14 @@ type Props = {
 const modelChoices = [
   {
     href: "#project-01",
-    image: "/portfolio/satellite-angle-01.jpg",
+    image: "/portfolio/optimized/satellite-angle-01.webp",
     index: "01",
     title: "废土卫星资产",
     meta: "HARD SURFACE / PBR",
   },
   {
     href: "#project-02",
-    image: "/portfolio/weapon-main.jpg",
+    image: "/portfolio/optimized/weapon-main.webp",
     index: "02",
     title: "梵音断魂",
     meta: "STYLIZED PROP / PBR",
@@ -37,14 +37,14 @@ const modelChoices = [
 const ueSceneChoices = [
   {
     href: "#ue-scene-01",
-    image: "/portfolio/ue-scenes/ruins-settlement.png",
+    image: "/portfolio/ue-scenes/ruins-settlement.webp",
     index: "01",
     title: "废墟聚落",
     meta: "RUINS / OVERCAST / FOG",
   },
   {
     href: "#ue-scene-02",
-    image: "/portfolio/ue-scenes/forest-shrine.png",
+    image: "/portfolio/ue-scenes/forest-shrine.webp",
     index: "02",
     title: "林间神社",
     meta: "SHRINE / LIGHTING / RAIN",
@@ -104,7 +104,7 @@ export default function StrengthsSection({ strengths }: Props) {
                     <div className={`model-choice-list${isUe ? " model-choice-list--ue" : ""}`}>
                       {choices.map((model) => (
                         <a href={model.href} key={model.index}>
-                          <img src={model.image} alt={`${model.title}预览`} />
+                          <img src={model.image} alt={`${model.title}预览`} loading="lazy" decoding="async" />
                           <span>
                             <small>{model.index} / {isUe ? "SCENE" : "MODEL"}</small>
                             <b>{model.title}</b>

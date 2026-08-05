@@ -175,11 +175,14 @@ export default function SpecularButton({
     let idleAngle = 2.4;
     let brightness = 0;
     let last = performance.now();
+    let lastRender = 0;
     let frame = 0;
     const line = new Color();
     const base = new Color();
     const update = (now: number) => {
       frame = window.requestAnimationFrame(update);
+      if (now - lastRender < 1000 / 30) return;
+      lastRender = now;
       const delta = Math.min((now - last) / 1000, .05);
       last = now;
       const current = propsRef.current;

@@ -18,23 +18,44 @@ const videos = [
 ];
 
 export default function VideoShowcase() {
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
   const hoverLockRef = useRef(false);
+  const scrollFrameRef = useRef(0);
   const [activeVideo, setActiveVideo] = useState(0);
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSectionVisible(entry.isIntersecting),
+      { rootMargin: "240px 0px", threshold: 0.01 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isSectionVisible || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      videoRefs.current.forEach((video) => video?.pause());
+      return;
+    }
 
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
       if (index === activeVideo) {
+        if (video.readyState === HTMLMediaElement.HAVE_NOTHING) video.load();
         video.play().catch(() => undefined);
       } else {
         video.pause();
       }
     });
-  }, [activeVideo]);
+  }, [activeVideo, isSectionVisible]);
+
+  useEffect(() => () => window.cancelAnimationFrame(scrollFrameRef.current), []);
 
   const scrollToVideo = (index: number) => {
     setActiveVideo(index);
@@ -52,21 +73,25 @@ export default function VideoShowcase() {
   };
 
   const updateActiveVideo = () => {
-    const track = trackRef.current;
-    if (!track) return;
+    if (scrollFrameRef.current) return;
+    scrollFrameRef.current = window.requestAnimationFrame(() => {
+      scrollFrameRef.current = 0;
+      const track = trackRef.current;
+      if (!track) return;
 
-    const cards = Array.from(track.children) as HTMLElement[];
-    const nearestIndex = cards.reduce((nearest, card, index) => {
-      const nearestDistance = Math.abs(cards[nearest].offsetLeft - track.scrollLeft);
-      const cardDistance = Math.abs(card.offsetLeft - track.scrollLeft);
-      return cardDistance < nearestDistance ? index : nearest;
-    }, 0);
+      const cards = Array.from(track.children) as HTMLElement[];
+      const nearestIndex = cards.reduce((nearest, card, index) => {
+        const nearestDistance = Math.abs(cards[nearest].offsetLeft - track.scrollLeft);
+        const cardDistance = Math.abs(card.offsetLeft - track.scrollLeft);
+        return cardDistance < nearestDistance ? index : nearest;
+      }, 0);
 
-    setActiveVideo(nearestIndex);
+      setActiveVideo(nearestIndex);
+    });
   };
 
   return (
-    <section className="ue-scenes video-showcase" id="video-showcase" aria-labelledby="video-showcase-title">
+    <section ref={sectionRef} className="ue-scenes video-showcase" id="video-showcase" aria-labelledby="video-showcase-title">
       <div className="ue-scenes-heading shell">
         <div className="section-label">
           <span>03.C</span>
@@ -144,12 +169,11 @@ export default function VideoShowcase() {
                 videoRefs.current[index] = node;
               }}
               src={video.src}
-              autoPlay={index === 0}
               muted
               loop
               playsInline
               controls
-              preload={index === 0 ? "auto" : "metadata"}
+              preload={isSectionVisible && index === activeVideo ? "auto" : "none"}
               aria-label={`${video.title}演示视频`}
             />
             <figcaption>

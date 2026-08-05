@@ -71,6 +71,8 @@ export default function InteractiveProject({ project }: Props) {
               className="model-image"
               src={project.image}
               alt={`${project.title}完整模型`}
+              loading="lazy"
+              decoding="async"
               style={{ objectFit: project.imageFit }}
             />
             <span className="model-stage-grid" aria-hidden="true" />
@@ -88,7 +90,7 @@ export default function InteractiveProject({ project }: Props) {
                 <span className="hotspot-ring" aria-hidden="true" />
                 <span className="hotspot-number">0{detailIndex + 1}</span>
                 <span className="hotspot-preview">
-                  <img src={detail.image} alt="" style={{ objectFit: detail.fit ?? "cover" }} />
+                  <img src={detail.image} alt="" loading="lazy" decoding="async" style={{ objectFit: detail.fit ?? "cover" }} />
                   <span className="hotspot-preview-copy">
                     <b>{detail.title}</b>
                     <small>{detail.note}</small>
@@ -120,6 +122,8 @@ export default function InteractiveProject({ project }: Props) {
             <img
               src={active.image}
               alt={`${project.title} — ${active.title}`}
+              loading="lazy"
+              decoding="async"
               style={{ objectFit: active.fit ?? "cover" }}
             />
             <div className="detail-explorer-index">
@@ -137,7 +141,7 @@ export default function InteractiveProject({ project }: Props) {
                 type="button"
                 aria-pressed={detailIndex === activeDetail}
               >
-                <img src={detail.image} alt="" style={{ objectFit: detail.fit ?? "cover" }} />
+                <img src={detail.image} alt="" loading="lazy" decoding="async" style={{ objectFit: detail.fit ?? "cover" }} />
                 <span>
                   <small>0{detailIndex + 1}</small>
                   <b>{detail.title}</b>
