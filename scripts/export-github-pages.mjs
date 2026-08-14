@@ -16,6 +16,7 @@ const githubPagesSafetyStyle =
 const baseArgument = process.argv.find((argument) => argument.startsWith("--base-path="));
 const rawBasePath = baseArgument?.slice("--base-path=".length) ?? "/-/";
 const basePath = `/${rawBasePath.split("/").filter(Boolean).join("/")}`;
+let vitePreloadBaseRewriteCount = 0;
 
 if (path.resolve(outputRoot) !== path.resolve(projectRoot, ".github-pages")) {
   throw new Error("GitHub Pages output path did not pass the safety check.");
@@ -32,6 +33,29 @@ function rewriteRootPaths(source) {
     .replaceAll("__GITHUB_PAGES_ASSETS__", `${basePath}/assets/`)
     .replaceAll("__GITHUB_PAGES_PORTFOLIO__", `${basePath}/portfolio/`)
     .replaceAll("__GITHUB_PAGES_FAVICON__", `${basePath}/favicon.svg`);
+}
+
+function rewriteVitePreloadBase(source) {
+  const functionPattern =
+    /([A-Za-z_$][\w$]*)=function\(([A-Za-z_$][\w$]*)\)\{return([`'"])\/\3\+\2\}/g;
+  const arrowPattern =
+    /([A-Za-z_$][\w$]*)=([A-Za-z_$][\w$]*)=>([`'"])\/\3\+\2/g;
+
+  const functionRewritten = source.replace(
+    functionPattern,
+    (match, name, parameter, quote) => {
+      vitePreloadBaseRewriteCount += 1;
+      return `${name}=function(${parameter}){return${quote}${basePath}/${quote}+${parameter}}`;
+    },
+  );
+
+  return functionRewritten.replace(
+    arrowPattern,
+    (match, name, parameter, quote) => {
+      vitePreloadBaseRewriteCount += 1;
+      return `${name}=${parameter}=>${quote}${basePath}/${quote}+${parameter}`;
+    },
+  );
 }
 
 async function rewriteStaticFiles(directory) {
@@ -51,7 +75,7 @@ async function rewriteStaticFiles(directory) {
       }
 
       const source = await readFile(entryPath, "utf8");
-      const rewritten = rewriteRootPaths(source);
+      const rewritten = rewriteVitePreloadBase(rewriteRootPaths(source));
 
       if (rewritten !== source) {
         await writeFile(entryPath, rewritten, "utf8");
@@ -111,6 +135,10 @@ try {
   await writeFile(path.join(outputRoot, "index.html"), staticHtml, "utf8");
   await writeFile(path.join(outputRoot, ".nojekyll"), "", "utf8");
   await rewriteStaticFiles(outputRoot);
+
+  if (vitePreloadBaseRewriteCount === 0) {
+    throw new Error("The Vite preload base path was not found in the static bundle.");
+  }
 
   console.log(`GitHub Pages files are ready in ${outputRoot}`);
 } finally {
