@@ -41,6 +41,9 @@ yarn-error.log*
 next-env.d.ts
 *.tsbuildinfo
 /dist/
+/.github-pages/
+/.pages-preview*.log
+/.offline-preview*.log
 /.wrangler/
 /outputs/
 /work/
