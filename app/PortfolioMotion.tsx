@@ -9,6 +9,13 @@ export default function PortfolioMotion() {
   useLayoutEffect(() => {
     let disposed = false;
     let disposeMotion: (() => void) | undefined;
+    const root = document.documentElement;
+    const revealPage = () => {
+      if (openingRef.current) openingRef.current.style.display = "none";
+      root.classList.remove("motion-active");
+      root.classList.add("motion-complete");
+    };
+    const openingFallback = window.setTimeout(revealPage, 4500);
 
     const setupMotion = async () => {
       const [{ gsap }, { ScrollTrigger }] = await Promise.all([
@@ -19,7 +26,6 @@ export default function PortfolioMotion() {
       if (disposed) return;
 
       gsap.registerPlugin(ScrollTrigger);
-      const root = document.documentElement;
       const opening = openingRef.current;
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -59,6 +65,7 @@ export default function PortfolioMotion() {
         const openingTimeline = gsap.timeline({
           defaults: { ease: "expo.out" },
           onComplete: () => {
+            window.clearTimeout(openingFallback);
             if (opening) opening.style.display = "none";
             root.classList.remove("motion-active");
             root.classList.add("motion-complete");
@@ -402,12 +409,11 @@ export default function PortfolioMotion() {
       }, document.body);
     };
 
-    setupMotion().catch(() => {
-      if (openingRef.current) openingRef.current.style.display = "none";
-    });
+    setupMotion().catch(revealPage);
 
     return () => {
       disposed = true;
+      window.clearTimeout(openingFallback);
       disposeMotion?.();
     };
   }, []);

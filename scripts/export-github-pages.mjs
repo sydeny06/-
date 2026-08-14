@@ -10,6 +10,8 @@ const outputRoot = path.join(projectRoot, ".github-pages");
 const vinextCli = path.join(projectRoot, "node_modules", "vinext", "dist", "cli.js");
 const port = "4317";
 const sourceUrl = `http://127.0.0.1:${port}/`;
+const githubPagesSafetyStyle =
+  '<style id="github-pages-opening-safety">.opening-sequence{display:none!important}</style>';
 
 const baseArgument = process.argv.find((argument) => argument.startsWith("--base-path="));
 const rawBasePath = baseArgument?.slice("--base-path=".length) ?? "/-/";
@@ -103,8 +105,10 @@ try {
     throw new Error("The captured page does not look like the complete portfolio.");
   }
 
+  const staticHtml = html.replace("</head>", `${githubPagesSafetyStyle}</head>`);
+
   await cp(clientRoot, outputRoot, { recursive: true });
-  await writeFile(path.join(outputRoot, "index.html"), html, "utf8");
+  await writeFile(path.join(outputRoot, "index.html"), staticHtml, "utf8");
   await writeFile(path.join(outputRoot, ".nojekyll"), "", "utf8");
   await rewriteStaticFiles(outputRoot);
 

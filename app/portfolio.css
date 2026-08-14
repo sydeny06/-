@@ -2441,6 +2441,15 @@ footer { border-color: rgba(184,220,70,.16); }
   pointer-events: all;
   color: #eef2e8;
   background: #060a08;
+  animation: opening-sequence-failsafe 0.01s linear 5s forwards;
+}
+
+@keyframes opening-sequence-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
 
 .opening-panel {
